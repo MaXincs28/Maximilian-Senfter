@@ -1,35 +1,13 @@
-# ShopOwner Demo
+# Project Skeleton
 
-This repository contains a basic FastAPI backend with PostgreSQL and JWT authentication, along with a minimal Next.js frontend for registration and login.
+This repository demonstrates a simple multi-platform project layout. It contains a Python FastAPI backend and placeholders for separate mobile and web frontends. Folders for infrastructure scripts and documentation are included as well.
 
-## Backend
+## Directory Structure
 
-Navigate to `backend` and install requirements:
+- `backend/` – FastAPI application code
+- `frontend/mobile/` – placeholder for mobile client
+- `frontend/web/` – web client implementation
+- `infra/` – infrastructure configuration
+- `docs/` – project documentation
 
-```bash
-pip install -r requirements.txt
-```
-
-Run the API:
-
-```bash
-uvicorn app.main:app --reload
-```
-
-Environment variable `DATABASE_URL` should point to your PostgreSQL instance.
-
-## Frontend
-
-Navigate to `frontend` and install dependencies:
-
-```bash
-npm install
-```
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-The signup page is at `/signup` and login page at `/login`.
+This structure provides a starting point for expanding the backend and frontend implementations or adding deployment scripts under `infra`.
