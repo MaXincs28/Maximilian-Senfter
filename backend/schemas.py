@@ -42,3 +42,20 @@ class ProductUpdate(BaseModel):
     name: str | None = None
     description: str | None = None
     price: float | None = None
+
+
+class OrderItemIn(BaseModel):
+    productId: int
+    quantity: int
+
+
+class OrderCreate(BaseModel):
+    shopId: int
+    items: List[OrderItemIn]
+    pickupTime: str
+
+
+class OrderStatusOut(BaseModel):
+    id: int
+    status: str
+    payment_status: str | None = None

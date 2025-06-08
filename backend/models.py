@@ -41,7 +41,7 @@ class Product(Base):
     image = Column(String)
 
     shop = relationship('Shop', back_populates='products')
-    orders = relationship('Order', back_populates='product')
+    order_items = relationship('OrderItem', back_populates='product')
 
 
 class Order(Base):
@@ -49,10 +49,25 @@ class Order(Base):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
-    quantity = Column(Integer, nullable=False, default=1)
+    shop_id = Column(Integer, ForeignKey('shops.id'), nullable=False)
     total_price = Column(Numeric(10, 2), nullable=False)
+    pickup_time = Column(DateTime(timezone=True), nullable=False)
+    status = Column(String, nullable=False, server_default='pending')
+    payment_intent_id = Column(String)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 
     user = relationship('User', back_populates='orders')
-    product = relationship('Product', back_populates='orders')
+    shop = relationship('Shop')
+    items = relationship('OrderItem', back_populates='order')
+
+
+class OrderItem(Base):
+    __tablename__ = 'order_items'
+
+    id = Column(Integer, primary_key=True)
+    order_id = Column(Integer, ForeignKey('orders.id'), nullable=False)
+    product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
+    quantity = Column(Integer, nullable=False, default=1)
+
+    order = relationship('Order', back_populates='items')
+    product = relationship('Product')

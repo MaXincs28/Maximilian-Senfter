@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     firebase_credentials: str | None = None
     celery_broker_url: str = "redis://localhost:6379/0"
     media_root: str = "media"
+    stripe_api_key: str = "sk_test"
 
     class Config:
         env_file = ".env"

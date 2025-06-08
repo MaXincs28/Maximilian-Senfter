@@ -23,3 +23,4 @@ This structure provides a starting point for expanding the backend and frontend 
 Authentication uses JWTs signed with the secret key. Set `FIREBASE_CREDENTIALS` in your `.env`
 to initialize Firebase Admin. Register and log in via `/auth/register` and `/auth/login`,
 then include the token in the `Authorization` header to access `/shops` and `/products` routes.
+Provide a Stripe test secret in `STRIPE_API_KEY` for order payments.
