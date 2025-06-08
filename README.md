@@ -11,3 +11,8 @@ This repository demonstrates a simple multi-platform project layout. It contains
 - `docs/` – project documentation
 
 This structure provides a starting point for expanding the backend and frontend implementations or adding deployment scripts under `infra`.
+
+### Backend quickstart
+1. Install dependencies from `backend/requirements.txt`.
+2. Copy `.env.example` to `.env` in the `backend` folder and adjust values.
+3. Run the API with `python backend/main.py`.
