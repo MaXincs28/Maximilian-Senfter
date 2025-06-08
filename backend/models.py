@@ -23,6 +23,7 @@ class Shop(Base):
     id = Column(Integer, primary_key=True)
     owner_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     name = Column(String, nullable=False)
+    address = Column(String)
     location = Column(Geometry('POINT'))
 
     owner = relationship('User', back_populates='shops')

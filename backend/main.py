@@ -4,17 +4,15 @@ from sqlalchemy.orm import Session
 
 from .settings import get_settings
 from .db import get_db
-from .models import Shop, Product
+from .models import Product
 from .auth import router as auth_router, get_current_user
+from .shops import router as shops_router
 
 app = FastAPI()
 settings = get_settings()
 
 app.include_router(auth_router)
-
-@app.get("/shops")
-def list_shops(db: Session = Depends(get_db), user=Depends(get_current_user)):
-    return db.query(Shop).all()
+app.include_router(shops_router)
 
 
 @app.get("/products")
