@@ -9,3 +9,4 @@ celery
 redis
 stripe
 firebase-admin
+geoalchemy2

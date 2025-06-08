@@ -15,4 +15,6 @@ This structure provides a starting point for expanding the backend and frontend 
 ### Backend quickstart
 1. Install dependencies from `backend/requirements.txt`.
 2. Copy `.env.example` to `.env` in the `backend` folder and adjust values.
-3. Run the API with `python backend/main.py`.
+3. Apply the database migrations using `alembic upgrade head` from the
+   `backend` directory (requires PostgreSQL with the PostGIS extension).
+4. Run the API with `python backend/main.py`.

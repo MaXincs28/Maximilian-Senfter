@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 import uvicorn
 from .settings import get_settings
+from .db import get_db
 
 app = FastAPI()
 settings = get_settings()
