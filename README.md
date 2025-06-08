@@ -18,7 +18,7 @@ This structure provides a starting point for expanding the backend and frontend 
 3. Apply the database migrations using `alembic upgrade head` from the
    `backend` directory (requires PostgreSQL with the PostGIS extension).
 4. Run the API with `python backend/main.py`.
-5. Start the Celery worker with `celery -A backend.tasks worker --loglevel=info`.
+5. Start the Celery worker with `celery -A backend.celery_app.celery_app worker --loglevel=info`.
 
 Authentication uses JWTs signed with the secret key. Set `FIREBASE_CREDENTIALS` in your `.env`
 to initialize Firebase Admin. Register and log in via `/auth/register` and `/auth/login`,

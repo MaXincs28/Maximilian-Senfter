@@ -8,7 +8,7 @@ from .models import Product, Shop
 from .auth import get_current_user
 from .schemas import ProductOut, ProductUpdate
 from .settings import get_settings
-from .tasks import process_product_image
+from .tasks import remove_background
 
 router = APIRouter(tags=["products"])
 settings = get_settings()
@@ -38,7 +38,7 @@ async def create_product(
     db.commit()
     db.refresh(product)
 
-    process_product_image.delay(product.id, raw_path)
+    remove_background.delay(product.id, raw_path)
 
     return ProductOut(
         id=product.id,
