@@ -28,7 +28,7 @@ def create_shop(shop_in: ShopCreate, db: Session = Depends(get_db), user=Depends
     )
 
 
-@router.get("", response_model=list[ShopOut])
+@router.get("")
 def list_shops(
     lat: float | None = Query(None),
     lng: float | None = Query(None),
@@ -36,19 +36,28 @@ def list_shops(
     db: Session = Depends(get_db),
     user=Depends(get_current_user),
 ):
+    """Return shops optionally filtered by distance from the given point."""
     query = db.query(
         Shop.id,
         Shop.name,
         Shop.address,
-        func.ST_Y(Shop.location).label("lat"),
-        func.ST_X(Shop.location).label("lng"),
-        Shop.owner_id.label("ownerId"),
+        func.ST_Y(Shop.location).label("latitude"),
+        func.ST_X(Shop.location).label("longitude"),
     )
     if lat is not None and lng is not None and radius is not None:
         point = WKTElement(f"POINT({lng} {lat})", srid=4326)
         query = query.filter(func.ST_DWithin(Shop.location, point, radius))
     rows = query.all()
-    return [ShopOut(**row._asdict()) for row in rows]
+    return [
+        {
+            "id": row.id,
+            "name": row.name,
+            "address": row.address,
+            "latitude": row.latitude,
+            "longitude": row.longitude,
+        }
+        for row in rows
+    ]
 
 
 @router.get("/{shop_id}", response_model=ShopOut)
