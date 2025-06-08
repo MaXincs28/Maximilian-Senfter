@@ -53,4 +53,6 @@ npm run dev
 ```
 
 The signup page is at `/signup` and login page at `/login`.
-After logging in, you can create a shop at `/create-shop` and add products at `/add-product`.
+When signing up you can optionally provide a shop name; the page will register
+the account and create the shop in one step.  After logging in, you can also
+manage shops at `/create-shop` and add products at `/add-product`.
