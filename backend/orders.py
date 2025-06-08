@@ -2,17 +2,17 @@ from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-import stripe
 
 from .db import get_db
 from .models import Order, OrderItem, Product, Shop
 from .auth import get_current_user
 from .schemas import OrderCreate, OrderStatusOut
 from .settings import get_settings
+from .payments import create_payment_intent
+import stripe
 
 router = APIRouter(prefix="/orders", tags=["orders"])
 settings = get_settings()
-stripe.api_key = settings.stripe_api_key
 
 
 @router.post("", response_model=dict)
@@ -44,15 +44,15 @@ def create_order(order_in: OrderCreate, db: Session = Depends(get_db), user=Depe
         db.add(OrderItem(order_id=order.id, product_id=product.id, quantity=qty))
     db.commit()
 
-    intent = stripe.PaymentIntent.create(
+    intent_id, client_secret = create_payment_intent(
         amount=int(total * 100),
         currency="usd",
-        automatic_payment_methods={"enabled": True},
+        metadata={"order_id": order.id},
     )
-    order.payment_intent_id = intent["id"]
+    order.payment_intent_id = intent_id
     db.commit()
 
-    return {"orderId": order.id, "paymentUrl": intent.client_secret}
+    return {"orderId": order.id, "paymentUrl": client_secret}
 
 
 @router.get("/{order_id}", response_model=OrderStatusOut)
