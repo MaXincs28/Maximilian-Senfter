@@ -3,6 +3,7 @@ from pydantic import BaseSettings
 class Settings(BaseSettings):
     database_url: str = "postgresql://user:password@localhost/db"
     secret_key: str = "change-me"
+    firebase_credentials: str | None = None
 
     class Config:
         env_file = ".env"

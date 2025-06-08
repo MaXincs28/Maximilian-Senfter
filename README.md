@@ -18,3 +18,7 @@ This structure provides a starting point for expanding the backend and frontend 
 3. Apply the database migrations using `alembic upgrade head` from the
    `backend` directory (requires PostgreSQL with the PostGIS extension).
 4. Run the API with `python backend/main.py`.
+
+Authentication uses JWTs signed with the secret key. Set `FIREBASE_CREDENTIALS` in your `.env`
+to initialize Firebase Admin. Register and log in via `/auth/register` and `/auth/login`,
+then include the token in the `Authorization` header to access `/shops` and `/products` routes.

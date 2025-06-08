@@ -10,3 +10,5 @@ redis
 stripe
 firebase-admin
 geoalchemy2
+PyJWT
+passlib[bcrypt]

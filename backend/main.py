@@ -1,10 +1,25 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 import uvicorn
+from sqlalchemy.orm import Session
+
 from .settings import get_settings
 from .db import get_db
+from .models import Shop, Product
+from .auth import router as auth_router, get_current_user
 
 app = FastAPI()
 settings = get_settings()
+
+app.include_router(auth_router)
+
+@app.get("/shops")
+def list_shops(db: Session = Depends(get_db), user=Depends(get_current_user)):
+    return db.query(Shop).all()
+
+
+@app.get("/products")
+def list_products(db: Session = Depends(get_db), user=Depends(get_current_user)):
+    return db.query(Product).all()
 
 @app.get("/")
 def read_root():
