@@ -3,12 +3,6 @@ uvicorn
 pydantic
 sqlalchemy
 alembic
-psycopg2-binary
 python-dotenv
-celery
-redis
-stripe
-firebase-admin
-geoalchemy2
 PyJWT
 passlib[bcrypt]

@@ -1,6 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Numeric, Boolean, DateTime, func
 from sqlalchemy.orm import relationship
-from geoalchemy2 import Geometry
 from .db import Base
 
 class User(Base):
@@ -24,7 +23,8 @@ class Shop(Base):
     owner_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     name = Column(String, nullable=False)
     address = Column(String)
-    location = Column(Geometry('POINT'))
+    lat = Column(Numeric(9, 6))
+    lng = Column(Numeric(9, 6))
 
     owner = relationship('User', back_populates='shops')
     products = relationship('Product', back_populates='shop')

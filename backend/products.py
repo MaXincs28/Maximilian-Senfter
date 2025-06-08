@@ -38,7 +38,7 @@ async def create_product(
     db.commit()
     db.refresh(product)
 
-    remove_background.delay(product.id, raw_path)
+    remove_background(product.id, raw_path)
 
     return ProductOut(
         id=product.id,

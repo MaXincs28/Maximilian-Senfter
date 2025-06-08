@@ -1,8 +1,6 @@
 from datetime import datetime, timedelta
 from typing import Optional
 
-import firebase_admin
-from firebase_admin import credentials, auth as firebase_auth
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import jwt
@@ -15,10 +13,6 @@ from .models import User
 from .settings import get_settings
 
 settings = get_settings()
-
-if settings.firebase_credentials and not firebase_admin._apps:
-    cred = credentials.Certificate(settings.firebase_credentials)
-    firebase_admin.initialize_app(cred)
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 security = HTTPBearer()

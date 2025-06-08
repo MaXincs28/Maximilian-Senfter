@@ -2,7 +2,6 @@ import os
 import shutil
 from sqlalchemy.orm import Session
 
-from .celery_app import celery_app
 from .settings import get_settings
 from .db import SessionLocal
 from .models import Product
@@ -15,7 +14,6 @@ def _local_remove_bg(input_path: str, output_path: str) -> None:
     shutil.copy(input_path, output_path)
 
 
-@celery_app.task(name="remove_background")
 def remove_background(product_id: int, raw_path: str) -> None:
     processed_dir = os.path.join(settings.media_root, "products")
     os.makedirs(processed_dir, exist_ok=True)

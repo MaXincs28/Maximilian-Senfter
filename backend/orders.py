@@ -9,7 +9,6 @@ from .auth import get_current_user
 from .schemas import OrderCreate, OrderStatusOut
 from .settings import get_settings
 from .payments import create_payment_intent
-import stripe
 
 router = APIRouter(prefix="/orders", tags=["orders"])
 settings = get_settings()
@@ -61,9 +60,6 @@ def get_order(order_id: int, db: Session = Depends(get_db), user=Depends(get_cur
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
 
-    payment_status = None
-    if order.payment_intent_id:
-        intent = stripe.PaymentIntent.retrieve(order.payment_intent_id)
-        payment_status = intent.status
+    payment_status = "pending"
 
     return OrderStatusOut(id=order.id, status=order.status, payment_status=payment_status)
