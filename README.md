@@ -17,7 +17,9 @@ uvicorn app.main:app --reload
 ```
 
 The API includes CORS settings allowing requests from the
-Next.js dev server at `http://localhost:3000`.
+Next.js dev server at `http://localhost:3000` (and `http://127.0.0.1:3000`).
+Set `NEXT_PUBLIC_API_URL` in the frontend if the backend runs on a different
+address.
 
 Environment variable `DATABASE_URL` should point to your PostgreSQL instance.
 

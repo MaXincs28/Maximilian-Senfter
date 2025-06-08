@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { API_URL } from '../config'
 
 export default function Signup() {
   const [username, setUsername] = useState('')
@@ -7,31 +8,37 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const res = await fetch('http://localhost:8000/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
-    })
-    if (res.ok) {
-      const loginRes = await fetch('http://localhost:8000/login', {
+    try {
+      const res = await fetch(`${API_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
       })
-      const data = await loginRes.json()
-      if (data.access_token && shopName) {
-        await fetch('http://localhost:8000/shops', {
+      if (res.ok) {
+        const loginRes = await fetch(`${API_URL}/login`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${data.access_token}`
-          },
-          body: JSON.stringify({ name: shopName })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
         })
+        const data = await loginRes.json()
+        if (data.access_token && shopName) {
+          await fetch(`${API_URL}/shops`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${data.access_token}`
+            },
+            body: JSON.stringify({ name: shopName })
+          })
+        }
+        setUsername('')
+        setPassword('')
+        setShopName('')
+      } else {
+        console.error('Signup failed')
       }
-      setUsername('')
-      setPassword('')
-      setShopName('')
+    } catch (err) {
+      console.error('Network error:', err)
     }
   }
 

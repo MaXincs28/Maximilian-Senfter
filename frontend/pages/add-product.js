@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { API_URL } from '../config'
 
 export default function AddProduct() {
   const [name, setName] = useState('')
@@ -8,17 +9,21 @@ export default function AddProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const token = localStorage.getItem('token')
-    await fetch('http://localhost:8000/products', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ name, price: parseFloat(price), shop_id: parseInt(shopId) })
-    })
-    setName('')
-    setPrice('')
-    setShopId('')
+    try {
+      await fetch(`${API_URL}/products`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ name, price: parseFloat(price), shop_id: parseInt(shopId) })
+      })
+      setName('')
+      setPrice('')
+      setShopId('')
+    } catch (err) {
+      console.error('Network error:', err)
+    }
   }
 
   return (

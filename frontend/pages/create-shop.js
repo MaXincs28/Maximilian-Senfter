@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { API_URL } from '../config'
 
 export default function CreateShop() {
   const [name, setName] = useState('')
@@ -6,15 +7,19 @@ export default function CreateShop() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const token = localStorage.getItem('token')
-    await fetch('http://localhost:8000/shops', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ name })
-    })
-    setName('')
+    try {
+      await fetch(`${API_URL}/shops`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ name })
+      })
+      setName('')
+    } catch (err) {
+      console.error('Network error:', err)
+    }
   }
 
   return (

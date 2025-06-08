@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { API_URL } from '../config'
 
 export default function Login() {
   const [username, setUsername] = useState('')
@@ -6,14 +7,20 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const res = await fetch('http://localhost:8000/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
-    })
-    const data = await res.json()
-    if (data.access_token) {
-      localStorage.setItem('token', data.access_token)
+    try {
+      const res = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      })
+      const data = await res.json()
+      if (res.ok && data.access_token) {
+        localStorage.setItem('token', data.access_token)
+      } else {
+        console.error('Login failed')
+      }
+    } catch (err) {
+      console.error('Network error:', err)
     }
   }
 
