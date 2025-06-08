@@ -24,3 +24,21 @@ class ShopOut(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class ProductOut(BaseModel):
+    id: int
+    shopId: int
+    name: str
+    description: str | None = None
+    price: float
+    image_url: str | None = None
+
+    class Config:
+        orm_mode = True
+
+
+class ProductUpdate(BaseModel):
+    name: str | None = None
+    description: str | None = None
+    price: float | None = None

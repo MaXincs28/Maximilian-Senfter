@@ -38,6 +38,7 @@ class Product(Base):
     name = Column(String, nullable=False)
     description = Column(String)
     price = Column(Numeric(10, 2), nullable=False)
+    image = Column(String)
 
     shop = relationship('Shop', back_populates='products')
     orders = relationship('Order', back_populates='product')
