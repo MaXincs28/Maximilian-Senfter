@@ -33,3 +33,7 @@ npm run dev
 ```
 
 The signup page is at `/signup` and login page at `/login`.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
