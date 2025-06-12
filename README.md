@@ -16,8 +16,6 @@ This structure can easily be expanded as you add more features.
    ```bash
    uvicorn backend.main:app --reload
    ```
-4. (Optional) To use PostgreSQL, set `DATABASE_URL` in `.env` and run `alembic upgrade head` from the `backend` directory before starting the API.
-
 Alternatively, you can run it as a module with `python -m backend.main`.
 
 Ensure that an empty `backend/__init__.py` file exists so the package can be executed as a module.
