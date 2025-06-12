@@ -4,7 +4,7 @@ This repository contains a basic FastAPI backend with PostgreSQL and JWT authent
 
 ## Backend
 
-Navigate to `backend` and install requirements:
+Navigate to `backend` and install requirements (these include `python-multipart` for handling `multipart/form-data`):
 
 ```bash
 pip install -r requirements.txt
