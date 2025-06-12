@@ -13,7 +13,7 @@ This repository demonstrates a simple multi-platform project layout. It contains
 This structure provides a starting point for expanding the backend and frontend implementations or adding deployment scripts under `infra`.
 
 ### Backend quickstart
-1. Install dependencies from `backend/requirements.txt`.
+1. Install dependencies from `backend/requirements.txt` (Pydantic is pinned to v1 for compatibility).
 2. Copy `.env.example` to `.env` in the `backend` folder and adjust values if needed.
 3. If using PostgreSQL, apply the database migrations with `alembic upgrade head` from the `backend` directory.
 4. Run the API locally with `python backend/main.py`.
