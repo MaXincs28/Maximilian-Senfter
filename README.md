@@ -15,7 +15,10 @@ This structure provides a starting point for expanding the backend and frontend 
 ### Backend quickstart
 1. Install dependencies from `backend/requirements.txt` (Pydantic is pinned to v1 for compatibility and includes `python-multipart` for file uploads).
 2. Copy `.env.example` to `.env` in the `backend` folder and adjust values if needed.
-3. Run the API locally with `python backend/main.py`. It uses SQLite by default and will create `local.db` automatically.
+3. Run the API locally with `python backend/main.py`. It uses SQLite by default and will create `local.db` automatically. You can also launch it with Uvicorn:
+   ```bash
+   uvicorn backend.main:app --reload
+   ```
 4. (Optional) To use PostgreSQL, set `DATABASE_URL` in `.env` and run `alembic upgrade head` from the `backend` directory before starting the API.
 
 Alternatively, you can run it as a module with `python -m backend.main`.
