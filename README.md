@@ -16,7 +16,9 @@ This structure provides a starting point for expanding the backend and frontend 
 1. Install dependencies from `backend/requirements.txt`.
 2. Copy `.env.example` to `.env` in the `backend` folder and adjust values if needed.
 3. If using PostgreSQL, apply the database migrations with `alembic upgrade head` from the `backend` directory.
-4. Run the API locally with `python -m backend.main`.
+4. Run the API locally with `python backend/main.py`.
+
+Alternatively, you can run it as a module with `python -m backend.main`.
 
 Ensure that an empty `backend/__init__.py` file exists so the package can be executed as a module.
 

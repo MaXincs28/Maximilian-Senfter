@@ -1,11 +1,16 @@
 from fastapi import FastAPI
 import uvicorn
 
-from .settings import get_settings
-from .auth import router as auth_router
-from .shops import router as shops_router
-from .products import router as products_router
-from .orders import router as orders_router
+if __name__ == "__main__" and __package__ is None:
+    import os
+    import sys
+    sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
+from backend.settings import get_settings
+from backend.auth import router as auth_router
+from backend.shops import router as shops_router
+from backend.products import router as products_router
+from backend.orders import router as orders_router
 
 app = FastAPI()
 settings = get_settings()
