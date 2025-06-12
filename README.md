@@ -1,16 +1,13 @@
 # Project Skeleton
 
-This repository demonstrates a simple multi-platform project layout. It contains a Python FastAPI backend and placeholders for separate mobile and web frontends. Folders for infrastructure scripts and documentation are included as well.
+This repository contains a minimal FastAPI backend and a simple Next.js web frontend. It is intended for local testing with SQLite and does not require any additional services.
 
 ## Directory Structure
 
 - `backend/` – FastAPI application code
-- `frontend/mobile/` – placeholder for mobile client
-- `frontend/web/` – web client implementation
-- `infra/` – infrastructure configuration
-- `docs/` – project documentation
+- `frontend/web/` – Next.js web client
 
-This structure provides a starting point for expanding the backend and frontend implementations or adding deployment scripts under `infra`.
+This structure can easily be expanded as you add more features.
 
 ### Backend quickstart
 1. Install dependencies from `backend/requirements.txt` (Pydantic is pinned to v1 for compatibility and includes `python-multipart` for file uploads).
@@ -48,3 +45,15 @@ then include the token in the `Authorization` header to access `/shops` and `/pr
    python backend\main.py
    ```
 The server listens on http://localhost:8000 and uses a local SQLite database located at `backend/local.db`.
+
+### Frontend quickstart
+1. Open a new terminal and navigate to `frontend/web`.
+2. Install dependencies with:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+   The frontend will be available at <http://localhost:3000> and expects the backend to run on port 8000.
